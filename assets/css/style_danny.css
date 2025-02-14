@@ -1,0 +1,21 @@
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 640px; /* Puedes ajustar el tamaño máximo si es necesario */
+    margin: auto;
+}
+
+#video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover; /* Asegura que el video se ajuste correctamente */
+}
+
+.overlay-frame {
+    position: absolute;
+    top: 10%;
+    width: 97%;
+    object-fit: cover; /* Asegura que la imagen cubra el video */
+    pointer-events: none; /* Evita que la imagen bloquee la interacción con el video */
+}
