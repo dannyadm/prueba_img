@@ -4,12 +4,35 @@ document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('canvas');
     const photo = document.getElementById('photo');
     const captureButton = document.getElementById('capture');
+    const changeCamera = document.getElementById('changeCamera');
+    changeCamera
+    let useFrontCamera = true; // Variable para alternar entre frontal y trasera
+    let stream = null;
 
     function startCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop()); // Detener la cámara actual antes de cambiar
+        }
+
+        const constraints = {
+            video: {
+                facingMode: useFrontCamera ? 'user' : 'environment'
+            }
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(newStream => {
+                stream = newStream;
+                video.srcObject = newStream;
+            })
+            .catch(err => console.error("Error al acceder a la cámara: ", err));
+    }
+
+    /*function startCamera() {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => { video.srcObject = stream; })
             .catch(err => console.error("Error al acceder a la cámara: ", err));
-    }
+    }*/
 
     function capturePhoto() {
         contador =+ 1
@@ -24,7 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     //setInterval(capturePhoto, 5000);
-    
+
+    changeCamera.addEventListener('click', function() {
+        useFrontCamera = !useFrontCamera; // Alternar entre cámaras
+        startCamera();
+    })
 
     captureButton.addEventListener('click', function() {
         let contador = 0
