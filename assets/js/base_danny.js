@@ -15,8 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const constraints = {
+            // video: {
+            //     facingMode: useFrontCamera ? 'user' : 'environment'
+            // }
             video: {
-                facingMode: useFrontCamera ? 'user' : 'environment'
+                frameRate: { ideal: 60, max: 60 },
+                facingMode: useFrontCamera ? 'user' : 'environment' // Cámara frontal o trasera
             }
         };
 
