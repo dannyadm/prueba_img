@@ -2,14 +2,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const photo = document.getElementById('photo');
+    const imgAuxCamera = document.getElementById('imgAuxCamera');
     const captureButton = document.getElementById('capture');
     const changeCamera = document.getElementById('changeCamera');
+
     let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     let useFrontCamera = true; // Variable para alternar entre frontal y trasera
     let stream = null;
 
     function startCamera() {
-        alert('Es un celular:::' + isMobile)
+        //alert('Es un celular:::' + isMobile)
         if (stream) {
             stream.getTracks().forEach(track => track.stop()); // Detener la cámara actual antes de cambiar
         }
@@ -43,8 +45,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const context = canvas.getContext('2d');
         canvas.width = 435;
         canvas.height = 290;
+        if (isMobile) {
+            context.drawImage(video, 80,100, 435, 290, 0, 0, 435, 290);
+        }else {
+            context.drawImage(video, 100,85, 435, 290, 0, 0, 435, 290);
+        }
         //context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        context.drawImage(video, 100,85, 435, 290, 0, 0, 435, 290);
+        
 
         // Convertir la imagen a base64 y mostrarla
         photo.src = canvas.toDataURL('image/png');
