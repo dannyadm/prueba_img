@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
         photo.src = canvas.toDataURL('image/png');
     }*/
 
-    function capturePhoto() {
+    /*function capturePhoto() {
         const context = canvas.getContext('2d');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight
@@ -125,10 +125,29 @@ document.addEventListener('DOMContentLoaded', function () {
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
         }
 
-
-        //context.drawImage(video, 100, 100, canvas.width, canvas.height, 0, 0, cropWidth, cropHeight);
-
         photo.src = canvas.toDataURL('image/png')
+    }*/
+
+    function capturePhoto() {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+    
+        let portrait = window.matchMedia("(orientation: portrait)").matches;
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+        context.save(); // Guardar el estado actual del contexto
+    
+        if (isMobile && portrait) {
+            // Rotar 180° la imagen para corregir la orientación en móviles
+            context.translate(canvas.width, canvas.height);
+            context.rotate(Math.PI);
+        }
+    
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.restore(); // Restaurar el contexto para futuras operaciones
+    
+        photo.src = canvas.toDataURL('image/png');
     }
 
     const decodeFun = (e) => {
