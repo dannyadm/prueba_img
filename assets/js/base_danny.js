@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (isMobile) {
-            console.log('Pruebaaaa finalllll');
-            cropWidth -= 105;
+            console.log('Cambio andchoooo');
+            cropWidth -= 110;
             cropHeight -= 95;
             cropX = (videoWidth - cropWidth) / 2;
             cropY = (videoHeight - cropHeight) / 2;
