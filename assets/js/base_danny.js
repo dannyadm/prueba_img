@@ -42,13 +42,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function capturePhoto() {
         contador =+ 1
         const context = canvas.getContext('2d');
-        canvas.width = 435;
-        canvas.height = 290;
+        
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         alert('Es un celularrrrrr:' + isMobile)
         if (isMobile) {
-            context.drawImage(video, 150,150, 435, 290, 0, 0, 435, 290);
+            canvas.width = 455;
+            canvas.height = 310;
+            context.drawImage(video, 200,200, 455, 310, 0, 0, 455, 310);
         }else {
+            canvas.width = 435;
+            canvas.height = 290;
             context.drawImage(video, 100,85, 435, 290, 0, 0, 435, 290);
         }
         //context.drawImage(video, 0, 0, canvas.width, canvas.height);
