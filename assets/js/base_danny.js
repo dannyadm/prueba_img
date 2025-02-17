@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const captureButton = document.getElementById('capture');
     const changeCamera = document.getElementById('changeCamera');
 
-    let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     let useFrontCamera = true; // Variable para alternar entre frontal y trasera
     let stream = null;
 
@@ -45,8 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const context = canvas.getContext('2d');
         canvas.width = 435;
         canvas.height = 290;
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        alert('Es un celularrrrrr:' + isMobile)
         if (isMobile) {
-            context.drawImage(video, 100,100, 435, 290, 0, 0, 435, 290);
+            context.drawImage(video, 150,150, 435, 290, 0, 0, 435, 290);
         }else {
             context.drawImage(video, 100,85, 435, 290, 0, 0, 435, 290);
         }
