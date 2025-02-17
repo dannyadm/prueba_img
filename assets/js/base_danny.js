@@ -121,6 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    changeOrientationImage()
+    //changeOrientationImage()
     startCamera()
 })
