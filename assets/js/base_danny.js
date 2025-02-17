@@ -66,8 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const videoWidth = video.videoWidth;
         const videoHeight = video.videoHeight;
 
-        canvas.width = videoWidth;
-        canvas.height = videoHeight;
+        /*canvas.width = videoWidth;
+        canvas.height = videoHeight;*/
 
         let cropWidth = 435;
         let cropHeight = 290;
@@ -82,6 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
             cropX = (videoWidth - cropWidth) / 2;
             cropY = (videoHeight - cropHeight) / 2;
         }
+        canvas.width = cropWidth;
+        canvas.height = cropHeight;
         context.drawImage(video, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
 
         photo.src = canvas.toDataURL('image/png')
