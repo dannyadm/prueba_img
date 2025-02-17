@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (isMobile) {
+            alert('Entrooooo aquiiiii')
             cropWidth -= 100;
             cropHeight -= 100;
             cropX = (videoWidth - cropWidth) / 2;
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let contador = 0
 
         let interval = setInterval(() => {
-            if (contador < 3) {
+            if (contador < 2) {
                 capturePhoto()
                 contador += 1
             } else {
