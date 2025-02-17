@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const captureButton = document.getElementById('capture');
     const changeCamera = document.getElementById('changeCamera');
     const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const resultadoDecoded = document.getElementById('resultadoDecoded');
+    const decodeBtn = document.getElementById('decodeBtn');
+    const codeReader = new ZXing.BrowserPDF417Reader()
 
     let useFrontCamera = true; // Variable para alternar entre frontal y trasera
     let stream = null;
@@ -117,6 +120,28 @@ document.addEventListener('DOMContentLoaded', function () {
         photo.src = canvas.toDataURL('image/png')
     }
 
+    const decodeFun = (e) => {
+        console.log('Entro a decodificar valoressss');
+        codeReader.decodeFromImage(photo)
+            .then(result => {
+                console.log(result.text);
+                let dataParser = parserResult(result.text);
+                console.log('Que fue que llegoooooo::::', dataParser);
+                //console.log(result.text);
+                let jsonString = JSON.stringify(dataParser);
+                resultadoDecoded.textContent = jsonString;
+                //resultDecoded.value = jsonString;
+                //ajustarAltura(resultDecoded);
+            })
+            .catch(err => {
+                console.error(err);
+                resultadoDecoded.textContent = 'Error al decodificar';
+            });
+
+
+        console.log(`Started decode for image from ${photo.src}`)
+    };
+
     /*function capturePhoto() {
         const context = canvas.getContext('2d');
         const videoWidth = video.videoWidth;
@@ -161,7 +186,9 @@ document.addEventListener('DOMContentLoaded', function () {
         startCamera();
     })
 
-    captureButton.addEventListener('click', function () {
+    captureButton.addEventListener('click', capturePhoto, false)
+
+    /*captureButton.addEventListener('click', function () {
         let contador = 0
 
         let interval = setInterval(() => {
@@ -174,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }, 3000)
 
-    });
+    });*/
 
     fullscreenBtn.addEventListener('click', function () {
         if (video.requestFullscreen) {
@@ -188,10 +215,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-
-
+    decodeBtn.addEventListener('click', decodeFun, false);
 
     changeOrientationImage()
     startCamera()
-    fullscreenBtn.click()
+    //fullscreenBtn.click()
 })
+
+function parserResult(text) {
+    console.log('Llego a crear objetooooo');
+    return {
+        afis_code: cleanString(text.substring(2, 10)),
+        finger_card: cleanString(text.substring(40, 48)),
+        document_number: cleanString(text.substring(48, 58)),
+        last_name: cleanString(text.substring(58, 80)),
+        second_last_name: cleanString(text.substring(81, 104)),
+        first_name: cleanString(text.substring(104, 127)),
+        middle_name: cleanString(text.substring(127, 150)),
+        gender: cleanString(text.substring(151, 152)),
+        birth_date: `${cleanString(text.substring(152, 156))}-${cleanString(text.substring(156, 158))}-${cleanString(text.substring(158, 160))}`.replace(/[^0-9-]/g, ''),
+        municipality_code: cleanString(text.substring(160, 162)),
+        department_code: cleanString(text.substring(162, 165)),
+        blood_type: cleanString(text.substring(166, 168))
+    };
+}
+
+function cleanString(text) {
+    return text.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚ+-]/g, '').trim()
+}

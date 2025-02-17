@@ -59,6 +59,7 @@
                 <br>
                 <canvas id="canvas" style="display:none;"></canvas>
                 <img id="photo" alt="Tu foto aparecerá aquí" width="100%">
+                <p id="resultadoDecoded"></p>
             </div>
 
         </div>
@@ -77,6 +78,9 @@
                 <div class="col-6">
                     <button class="btn btn-primary" id="fullscreenBtn">Full</button>
                 </div>
+                <div class="col-6">
+                    <button class="btn btn-primary" id="decodeBtn">Decode</button>
+                </div>
                 
             </div>
         </div>
@@ -87,6 +91,7 @@
 
 
     <!-- ============== Js Files ==============  -->
+    <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
     <!-- Bootstrap -->
     <script src="assets/js/lib/bootstrap.min.js"></script>
     <!-- Ionicons -->
