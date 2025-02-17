@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    //changeOrientationImage()
+    changeOrientationImage()
     startCamera()
     fullscreenBtn.click()
 })
