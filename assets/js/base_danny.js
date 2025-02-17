@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // }
             video: {
                 width: { min: 640, ideal: 1280, max: 1920 },
-                height: { min: 480, ideal: 720, max: 1080 } ,
+                height: { min: 480, ideal: 720, max: 1080 },
                 frameRate: { ideal: 60, max: 60 },
                 facingMode: useFrontCamera ? 'user' : 'environment' // Cámara frontal o trasera
             }
@@ -108,11 +108,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function capturePhoto() {
         const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight
+
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);        
+        //context.drawImage(video, 100, 100, canvas.width, canvas.height, 0, 0, cropWidth, cropHeight);
+
+        photo.src = canvas.toDataURL('image/png')
+    }
+
+    /*function capturePhoto() {
+        const context = canvas.getContext('2d');
         const videoWidth = video.videoWidth;
         const videoHeight = video.videoHeight;
 
-        /*canvas.width = videoWidth;
-        canvas.height = videoHeight;*/
+        canvas.width = videoWidth;
+        canvas.height = videoHeight;
 
         let cropWidth = 435;
         let cropHeight = 290;
@@ -132,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
         context.drawImage(video, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
 
         photo.src = canvas.toDataURL('image/png')
-    }
+    }*/
 
     function changeOrientationImage() {
         let portrait = window.matchMedia("(orientation: portrait)").matches;
@@ -177,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    
+
 
 
     //changeOrientationImage()
