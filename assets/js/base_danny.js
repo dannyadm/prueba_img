@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let portrait = window.matchMedia("(orientation: portrait)").matches;
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (isMobile && portrait) {
-            imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1);'    
+            imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1)';
         }
         
     }
