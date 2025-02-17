@@ -114,7 +114,18 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight
 
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);        
+        let portrait = window.matchMedia("(orientation: portrait)").matches;
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile && portrait) {
+            context.save(); // Guardar el estado actual del contexto
+            context.scale(-1, 1); // Invertir horizontalmente
+            context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height); // Dibujar la imagen reflejada
+            context.restore();
+        } else {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
+
+
         //context.drawImage(video, 100, 100, canvas.width, canvas.height, 0, 0, cropWidth, cropHeight);
 
         photo.src = canvas.toDataURL('image/png')
@@ -175,8 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (isMobile && portrait) {
             imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1)';
-            imgAuxCamera.style.width = video.videoHeight
-            imgAuxCamera.style.height = video.videoHeight
         }
 
     }
