@@ -1,11 +1,12 @@
 .video-container {
     position: relative;
     width: 100%;
-    max-width: 640px; /* Puedes ajustar el tamaño máximo si es necesario */
+    max-width: 100%; /* Puedes ajustar el tamaño máximo si es necesario */
 }
 
 #video {
     width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
     object-fit: cover;  /*Asegura que el video se ajuste correctamente */
