@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(err => console.error("Error al acceder a la cámara: ", err));
     }*/
 
-    function capturePhoto() {
+    /*function capturePhoto() {
         contador =+ 1
         const context = canvas.getContext('2d');
         
@@ -59,6 +59,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Convertir la imagen a base64 y mostrarla
         photo.src = canvas.toDataURL('image/png');
+    }*/
+
+    function capturePhoto() {
+        const context = canvas.getContext('2d');
+    
+        // Obtener las dimensiones reales del video
+        const videoWidth = video.videoWidth;
+        const videoHeight = video.videoHeight;
+    
+        // Configurar el tamaño del canvas en función de las dimensiones del video
+        canvas.width = videoWidth;
+        canvas.height = videoHeight;
+    
+        // Definir las dimensiones y posición del recorte
+        const cropWidth = 435;
+        const cropHeight = 290;
+        const cropX = (videoWidth - cropWidth) / 2; // Centrar el recorte horizontalmente
+        const cropY = (videoHeight - cropHeight) / 2; // Centrar el recorte verticalmente
+    
+        // Dibujar la imagen recortada en el canvas
+        context.drawImage(video, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+    
+        // Establecer la fuente de la imagen como el contenido del canvas
+        photo.src = canvas.toDataURL('image/png')
     }
 
     //setInterval(capturePhoto, 5000);
