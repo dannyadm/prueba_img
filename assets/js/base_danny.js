@@ -139,11 +139,9 @@ document.addEventListener('DOMContentLoaded', function () {
         context.save(); // Guardar el estado actual del contexto
     
         if (isMobile && portrait) {
-            // Rotar 90° la imagen para corregir la orientación en móviles
-            context.translate(canvas.width, 0);  // Mover el origen del contexto al borde derecho
-            context.rotate(Math.PI);  // Rotar 90° en sentido horario
-            canvas.width = video.videoHeight;  // Ajustar el ancho del canvas al nuevo tamaño
-            canvas.height = video.videoWidth;  // Ajustar el alto del canvas al nuevo tamaño
+            // Rotar 180° la imagen para corregir la orientación en móviles
+            context.translate(canvas.width, canvas.height);
+            context.rotate(Math.PI);
         }
     
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
