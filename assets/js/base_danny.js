@@ -4,10 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const photo = document.getElementById('photo');
     const captureButton = document.getElementById('capture');
     const changeCamera = document.getElementById('changeCamera');
+    let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     let useFrontCamera = true; // Variable para alternar entre frontal y trasera
     let stream = null;
 
     function startCamera() {
+        alert('Es un celular:::' + isMobile)
         if (stream) {
             stream.getTracks().forEach(track => track.stop()); // Detener la cámara actual antes de cambiar
         }
