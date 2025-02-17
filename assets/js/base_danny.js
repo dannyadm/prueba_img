@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let cropX = (videoWidth - cropWidth) / 2;
         let cropY = (videoHeight - cropHeight) / 2;
 
-        
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (isMobile) {
             console.log('Cambio andchoooo');
             cropWidth -= 110;
