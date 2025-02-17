@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const photo = document.getElementById('photo');
     const captureButton = document.getElementById('capture');
     const changeCamera = document.getElementById('changeCamera');
-    changeCamera
     let useFrontCamera = true; // Variable para alternar entre frontal y trasera
     let stream = null;
 
