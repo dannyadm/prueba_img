@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let contador = 0
 
         let interval = setInterval(() => {
-            if (contador < 5) {
+            if (contador < 3) {
                 capturePhoto()
                 contador += 1
             }else {
