@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const imgAuxCamera = document.getElementById('imgAuxCamera');
     const captureButton = document.getElementById('capture');
     const changeCamera = document.getElementById('changeCamera');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
 
     let useFrontCamera = true; // Variable para alternar entre frontal y trasera
     let stream = null;
@@ -29,21 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(newStream => {
                 stream = newStream;
                 video.srcObject = newStream;
-                video.onloadedmetadata = () => {
-                    video.play();
-                    setTimeout(() => {
-                        if (video.requestFullscreen) {
-                            video.requestFullscreen();
-                        } else if (video.mozRequestFullScreen) {
-                            video.mozRequestFullScreen();
-                        } else if (video.webkitRequestFullscreen) {
-                            video.webkitRequestFullscreen();
-                        } else if (video.msRequestFullscreen) {
-                            video.msRequestFullscreen();
-                        }
-                    }, 500);
-                    //video.requestFullscreen();
-                };
             })
             .catch(err => console.error("Error al acceder a la cámara: ", err));
     }
@@ -146,6 +132,15 @@ document.addEventListener('DOMContentLoaded', function () {
         photo.src = canvas.toDataURL('image/png')
     }
 
+    function changeOrientationImage() {
+        let portrait = window.matchMedia("(orientation: portrait)").matches;
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile && portrait) {
+            imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1)';
+        }
+
+    }
+
     //setInterval(capturePhoto, 5000);
 
     changeCamera.addEventListener('click', function () {
@@ -168,16 +163,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-    function changeOrientationImage() {
-        let portrait = window.matchMedia("(orientation: portrait)").matches;
-        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (isMobile && portrait) {
-            imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1)';
+    fullscreenBtn.addEventListener('click', function () {
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } else if (video.mozRequestFullScreen) {
+            video.mozRequestFullScreen();
+        } else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) {
+            video.msRequestFullscreen();
         }
-        
-    }
+    })
+
+    
 
 
     //changeOrientationImage()
     startCamera()
+    fullscreenBtn.click()
 })
