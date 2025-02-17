@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
             //     facingMode: useFrontCamera ? 'user' : 'environment'
             // }
             video: {
+                width: { min: 640, ideal: 1280, max: 1920 },
+                height: { min: 480, ideal: 720, max: 1080 } ,
                 frameRate: { ideal: 60, max: 60 },
                 facingMode: useFrontCamera ? 'user' : 'environment' // Cámara frontal o trasera
             }
