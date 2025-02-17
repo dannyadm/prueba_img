@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isMobile) {
             canvas.width = 405;
             canvas.height = 260;
-            context.drawImage(video, 200,200, 405, 260, 0, 0, 405, 260);
+            context.drawImage(video, 100,100, 405, 260, 0, 0, 405, 260);
         }else {
             canvas.width = 435;
             canvas.height = 290;
