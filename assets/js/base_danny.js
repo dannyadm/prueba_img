@@ -175,6 +175,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (isMobile && portrait) {
             imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1)';
+            imgAuxCamera.style.width = video.videoHeight
+            imgAuxCamera.style.height = video.videoHeight
         }
 
     }
