@@ -63,48 +63,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function capturePhoto() {
         const context = canvas.getContext('2d');
-    
-        // Obtener las dimensiones reales del video
         const videoWidth = video.videoWidth;
         const videoHeight = video.videoHeight;
-    
-        // Configurar el tamaño del canvas en función de las dimensiones del video
+
         canvas.width = videoWidth;
         canvas.height = videoHeight;
-    
-        // Definir las dimensiones y posición del recorte
-        const cropWidth = 435;
-        const cropHeight = 290;
-        const cropX = (videoWidth - cropWidth) / 2; // Centrar el recorte horizontalmente
-        const cropY = (videoHeight - cropHeight) / 2; // Centrar el recorte verticalmente
-    
-        // Dibujar la imagen recortada en el canvas
+
+        let cropWidth = 435;
+        let cropHeight = 290;
+        let cropX = (videoWidth - cropWidth) / 2;
+        let cropY = (videoHeight - cropHeight) / 2;
+
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile) {
+            cropWidth -= 20;
+            cropHeight -= 10;
+            cropX = (videoWidth - cropWidth) / 2;
+            cropY = (videoHeight - cropHeight) / 2;
+        }
         context.drawImage(video, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
-    
-        // Establecer la fuente de la imagen como el contenido del canvas
+
         photo.src = canvas.toDataURL('image/png')
     }
 
     //setInterval(capturePhoto, 5000);
 
-    changeCamera.addEventListener('click', function() {
+    changeCamera.addEventListener('click', function () {
         useFrontCamera = !useFrontCamera; // Alternar entre cámaras
         startCamera();
     })
 
-    captureButton.addEventListener('click', function() {
+    captureButton.addEventListener('click', function () {
         let contador = 0
 
         let interval = setInterval(() => {
             if (contador < 3) {
                 capturePhoto()
                 contador += 1
-            }else {
+            } else {
                 clearInterval(interval)
                 console.log('Finalizo capturas');
             }
         }, 3000)
-        
+
     });
 
     startCamera()
