@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         alert('Es un celularrrrrr:' + isMobile)
         if (isMobile) {
-            canvas.width = 405;
-            canvas.height = 260;
-            context.drawImage(video, 100,100, 405, 260, 0, 0, 405, 260);
+            canvas.width = 350;
+            canvas.height = 210;
+            context.drawImage(video, 50,50, 350, 210, 0, 0, 350, 210);
         }else {
             canvas.width = 435;
             canvas.height = 290;
