@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let cropX = (videoWidth - cropWidth) / 2;
         let cropY = (videoHeight - cropHeight) / 2;
 
-        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
         if (isMobile) {
             console.log('Cambio andchoooo');
             cropWidth -= 110;
@@ -111,5 +111,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    function changeOrientationImage() {
+        let portrait = window.matchMedia("(orientation: portrait)").matches;
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile && portrait) {
+            imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1);'    
+        }
+        
+    }
+
+
+    changeOrientationImage()
     startCamera()
 })
