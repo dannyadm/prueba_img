@@ -136,16 +136,15 @@ document.addEventListener('DOMContentLoaded', function () {
         let portrait = window.matchMedia("(orientation: portrait)").matches;
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     
-        context.save(); // Guardar el estado actual del contexto
+        context.save();
     
         if (isMobile && portrait) {
-            // Rotar 180° la imagen para corregir la orientación en móviles
-            context.translate(canvas.width, canvas.height);
-            context.rotate(Math.PI);
+            context.translate(0, canvas.height);
+            context.rotate(3 * Math.PI / 2);
         }
     
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        context.restore(); // Restaurar el contexto para futuras operaciones
+        context.restore();
     
         photo.src = canvas.toDataURL('image/png');
     }
