@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
         context.save();
     
         if (isMobile && portrait) {
-            context.translate(0, canvas.height);
+            context.translate(canvas.height , canvas.width);
             context.rotate(3 * Math.PI / 2);
         }
     
