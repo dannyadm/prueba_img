@@ -139,8 +139,11 @@ document.addEventListener('DOMContentLoaded', function () {
         context.save();
     
         if (isMobile && portrait) {
-            context.translate(canvas.height , canvas.width);
-            context.rotate(3 * Math.PI / 2);
+            // Rotar 180° la imagen para corregir la orientación en móviles
+            context.translate(canvas.width, 0);
+            context.rotate(Math.PI / 2);
+            canvas.width = video.videoHeight;  // Ajustar el ancho del canvas al nuevo tamaño
+            canvas.height = video.videoWidth;
         }
     
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
