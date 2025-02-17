@@ -29,9 +29,66 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(newStream => {
                 stream = newStream;
                 video.srcObject = newStream;
+                video.onloadedmetadata = () => {
+                    video.play();
+                    setTimeout(() => {
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.mozRequestFullScreen) {
+                            video.mozRequestFullScreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        } else if (video.msRequestFullscreen) {
+                            video.msRequestFullscreen();
+                        }
+                    }, 500);
+                    //video.requestFullscreen();
+                };
             })
             .catch(err => console.error("Error al acceder a la cámara: ", err));
     }
+
+    /*function startCamera() {
+        //alert('Es un celular:::' + isMobile)
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop()); // Detener la cámara actual antes de cambiar
+        }
+    
+        const constraints = {
+            // video: {
+            //     facingMode: useFrontCamera ? 'user' : 'environment'
+            // }
+            video: {
+                frameRate: { ideal: 60, max: 60 },
+                facingMode: useFrontCamera ? 'user' : 'environment' // Cámara frontal o trasera
+            }
+        };
+    
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(newStream => {
+                stream = newStream;
+                const video = document.getElementById('videoElement');
+                video.srcObject = newStream;
+    
+                video.onloadedmetadata = () => {
+                    video.play(); // Comienza la reproducción automáticamente
+                    
+                    // Esperar un breve tiempo antes de intentar fullscreen
+                    setTimeout(() => {
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.mozRequestFullScreen) {
+                            video.mozRequestFullScreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        } else if (video.msRequestFullscreen) {
+                            video.msRequestFullscreen();
+                        }
+                    }, 500);
+                };
+            })
+            .catch(err => console.error("Error al acceder a la cámara: ", err));
+    }*/
 
     /*function startCamera() {
         navigator.mediaDevices.getUserMedia({ video: true })
