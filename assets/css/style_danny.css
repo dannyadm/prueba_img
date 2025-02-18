@@ -35,3 +35,20 @@
     max-height: 100%;
     pointer-events: none;
 }
+
+canvas {
+    border: 1px solid red;
+}
+
+.hidden-initially {
+    display: none;
+}
+
+#fullscreenControls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}

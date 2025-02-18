@@ -2,12 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const photo = document.getElementById('photo');
-    const imgAuxCamera = document.getElementById('imgAuxCamera');
     const captureButton = document.getElementById('capture');
     const changeCamera = document.getElementById('changeCamera');
     const fullscreenBtn = document.getElementById('fullscreenBtn');
     const resultadoDecoded = document.getElementById('resultadoDecoded');
     const decodeBtn = document.getElementById('decodeBtn');
+
+    const videoContainer = document.getElementById("auxContainer");
+    const fullscreenControls = document.getElementById("fullscreenControls");
+
     const codeReader = new ZXing.BrowserPDF417Reader()
 
     let useFrontCamera = true; // Variable para alternar entre frontal y trasera
@@ -39,76 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(err => console.error("Error al acceder a la cámara: ", err));
     }
 
-    /*function startCamera() {
-        //alert('Es un celular:::' + isMobile)
-        if (stream) {
-            stream.getTracks().forEach(track => track.stop()); // Detener la cámara actual antes de cambiar
-        }
-    
-        const constraints = {
-            // video: {
-            //     facingMode: useFrontCamera ? 'user' : 'environment'
-            // }
-            video: {
-                frameRate: { ideal: 60, max: 60 },
-                facingMode: useFrontCamera ? 'user' : 'environment' // Cámara frontal o trasera
-            }
-        };
-    
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(newStream => {
-                stream = newStream;
-                const video = document.getElementById('videoElement');
-                video.srcObject = newStream;
-    
-                video.onloadedmetadata = () => {
-                    video.play(); // Comienza la reproducción automáticamente
-                    
-                    // Esperar un breve tiempo antes de intentar fullscreen
-                    setTimeout(() => {
-                        if (video.requestFullscreen) {
-                            video.requestFullscreen();
-                        } else if (video.mozRequestFullScreen) {
-                            video.mozRequestFullScreen();
-                        } else if (video.webkitRequestFullscreen) {
-                            video.webkitRequestFullscreen();
-                        } else if (video.msRequestFullscreen) {
-                            video.msRequestFullscreen();
-                        }
-                    }, 500);
-                };
-            })
-            .catch(err => console.error("Error al acceder a la cámara: ", err));
-    }*/
-
-    /*function startCamera() {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => { video.srcObject = stream; })
-            .catch(err => console.error("Error al acceder a la cámara: ", err));
-    }*/
-
-    /*function capturePhoto() {
-        contador =+ 1
-        const context = canvas.getContext('2d');
-        
-        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        alert('Es un celularrrrrr:' + isMobile)
-        if (isMobile) {
-            canvas.width = 350;
-            canvas.height = 210;
-            context.drawImage(video, 0,0, 350, 210, 0, 0, 350, 210);
-        }else {
-            canvas.width = 435;
-            canvas.height = 290;
-            context.drawImage(video, 100,85, 435, 290, 0, 0, 435, 290);
-        }
-        //context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-
-        // Convertir la imagen a base64 y mostrarla
-        photo.src = canvas.toDataURL('image/png');
-    }*/
-
     /*function capturePhoto() {
         const context = canvas.getContext('2d');
         canvas.width = video.videoWidth;
@@ -128,27 +61,63 @@ document.addEventListener('DOMContentLoaded', function () {
         photo.src = canvas.toDataURL('image/png')
     }*/
 
-    function capturePhoto() {
+    /*function capturePhoto() {
         const context = canvas.getContext('2d');
+        console.log('Withhhhhh videoooo:' + canvas.width);
+        console.log('heightttt videoooo:' + canvas.height);
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-    
+        console.log('Withhhhhh videoooo:' + video.videoWidth);
+        console.log('heightttt videoooo:' + video.videoHeight);
+
         let portrait = window.matchMedia("(orientation: portrait)").matches;
         let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
+
         context.save();
-    
-        if (isMobile && portrait) {
-            // Rotar 180° la imagen para corregir la orientación en móviles
-            canvas.width = video.videoHeight;
-            canvas.height = video.videoWidth;
-            context.translate(canvas.width, canvas.height);
-            context.rotate(Math.PI);
-        }
-    
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        //if (isMobile && portrait) {
+            //canvas.width = video.videoHeight;
+            //canvas.height = video.videoWidth;
+            //context.translate(canvas.width, canvas.height);
+            //context.rotate(Math.PI);
+        //}
+        canvas.width = video.videoHeight;
+        canvas.height = video.videoWidth;
+        context.translate(canvas.height, 0);
+        context.rotate(Math.PI / 2);
+        console.log('Withhhhhh videoooo:' + canvas.width);
+        console.log('heightttt videoooo:' + canvas.height);
+        context.drawImage(video, 0, 0, canvas.height, canvas.width);
         context.restore();
+
+        photo.src = canvas.toDataURL('image/png');
+    }*/
+
+    function capturePhoto() {
+        const context = canvas.getContext('2d');
     
+        let videoWidth = video.videoWidth;
+        let videoHeight = video.videoHeight;
+    
+        // Ajustamos el tamaño del canvas antes de obtener el contexto
+        canvas.width = videoHeight;  // Intercambiamos ancho y alto para la rotación
+        canvas.height = videoWidth;
+    
+        console.log('Canvas Width:', canvas.width);
+        console.log('Canvas Height:', canvas.height);
+    
+        context.save(); // Guardamos el contexto antes de hacer transformaciones
+    
+        // Trasladamos el origen de coordenadas antes de rotar
+        context.translate(canvas.width, 0); 
+        context.rotate(Math.PI / 2); // Rotamos 90° (Pi/2 radianes)
+    
+        // Dibujamos la imagen en la nueva orientación
+        context.drawImage(video, 0, 0, videoWidth, videoHeight);
+    
+        context.restore(); // Restauramos el contexto
+    
+        // Convertimos el contenido del canvas en imagen
         photo.src = canvas.toDataURL('image/png');
     }
 
@@ -208,8 +177,23 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isMobile && portrait) {
             imgAuxCamera.style.transform = 'rotate(90deg) scale(1, 1)';
         }
-
     }
+
+    function toggleButtons() {
+        let isFullscreen = document.fullscreenElement === videoContainer || 
+                           document.mozFullScreenElement === videoContainer || 
+                           document.webkitFullscreenElement === videoContainer || 
+                           document.msFullscreenElement === videoContainer;
+
+        /*fullscreenControls.style.display = isFullscreen ? "flex" : "none";
+        captureButton.style.display = isFullscreen ? "flex" : "none"
+        changeCamera.style.display = isFullscreen ? "flex" : "none"*/
+    }
+
+    document.addEventListener("fullscreenchange", toggleButtons);
+    document.addEventListener("webkitfullscreenchange", toggleButtons);
+    document.addEventListener("mozfullscreenchange", toggleButtons);
+    document.addEventListener("MSFullscreenChange", toggleButtons);
 
     //setInterval(capturePhoto, 5000);
 
@@ -235,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });*/
 
-    fullscreenBtn.addEventListener('click', function () {
+    /*fullscreenBtn.addEventListener('click', function () {
         if (video.requestFullscreen) {
             video.requestFullscreen();
         } else if (video.mozRequestFullScreen) {
@@ -245,12 +229,37 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (video.msRequestFullscreen) {
             video.msRequestFullscreen();
         }
-    })
+    })*/
+
+    fullscreenBtn.addEventListener("click", function () {
+        if (!document.fullscreenElement) {
+            if (videoContainer.requestFullscreen) {
+                videoContainer.requestFullscreen();
+            } else if (videoContainer.mozRequestFullScreen) {
+                videoContainer.mozRequestFullScreen();
+            } else if (videoContainer.webkitRequestFullscreen) {
+                videoContainer.webkitRequestFullscreen();
+            } else if (videoContainer.msRequestFullscreen) {
+                videoContainer.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    });
 
     decodeBtn.addEventListener('click', decodeFun, false);
 
-    changeOrientationImage()
+
     startCamera()
+    //changeOrientationImage()
     //fullscreenBtn.click()
 })
 
