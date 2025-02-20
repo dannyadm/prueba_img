@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Si es un mobileeeee');
                 canvas.width = imgElement.height;
                 canvas.height = imgElement.width;
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = "high";
                 ctx.save();
                 ctx.translate(0, canvas.height);
                 ctx.rotate(Math.PI * 1.5);
@@ -71,6 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('NO es un mobileeeee');
                 canvas.width = imgElement.width;
                 canvas.height = imgElement.height;
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = "high";
                 ctx.drawImage(imgElement, 0, 0);
             }
             let mat = cv.imread(canvas);
