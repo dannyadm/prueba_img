@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var dataUri = cameraPhoto.getDataUri(config);
         imgElement.src = dataUri;
-        setTimeout(() => {
+        /*setTimeout(() => {
             let imgWidth = imgElement.width;
             let imgHeight = imgElement.height;
             const canvas = document.createElement('canvas');
@@ -72,15 +72,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 canvas.height = imgElement.height;
                 ctx.drawImage(imgElement, 0, 0);
             }
-            /*canvas.width = imgElement.width;
-            canvas.height = imgElement.height;*/
             let mat = cv.imread(canvas);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
 
             const base64Image = canvas.toDataURL('image/png');
             imgElement.src = base64Image;
-        }, 20);
+        }, 20);*/
 
 
         /*imgElement.onload = function () {
