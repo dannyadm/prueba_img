@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>Mobilekit Mobile UI Kit</title>
+    <meta name="description" content="Mobilekit HTML Mobile UI Kit">
+    <meta name="keywords" content="bootstrap 5, mobile template, cordova, phonegap, mobile, html" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/192x192.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style_danny.css">
+    <link rel="manifest" href="__manifest.json">
+</head>
+
+<body class="bg-white">
+
+    <!-- loader -->
+    <!-- <div id="loader">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div> -->
+    <!-- * loader -->
+
+    <!-- App Header -->
+    <div class="appHeader no-border transparent">
+        <div class="left">
+        </div>
+        <div class="pageTitle">
+            <img src="assets/img/logo.png" alt="logo" class="logo">
+        </div>
+        <div class="right">
+            <a href="app-pages.html" class="headerButton text-secondary">
+                Skip
+            </a>
+        </div>
+    </div>
+    <!-- * App Header -->
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+        <!-- carousel slider -->
+        <div class="row" style="margin: 10px;">
+            <div class="card" style="min-height: 600px;">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <div class="video-container" id="auxContainer">
+                        <!-- <img src="https://qa-bio-capture.gse.com.co/frames/captureFrame.svg" class="overlay-frame" id="imgAuxCamera"> -->
+                        <video id="video" autoplay></video>
+                        <!-- <div id="fullscreenControls" class="hidden-initially">
+                            <button class="btn btn-primary hidden-initially" id="changeCamera">Cambiar cámara</button>
+                            <button class="btn btn-primary hidden-initially" id="capture">Tomar Foto</button>
+                        </div> -->
+                        <div id="fullscreenControls">
+                            <button class="btn btn-primary" id="changeCamera">Cambiar cámara</button>
+                            <button class="btn btn-primary" id="capture">Tomar Foto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-container">
+                <br>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <img id="photo" alt="Tu foto aparecerá aquí" width="100%">
+                <p id="resultadoDecoded"></p>
+            </div>
+
+        </div>
+        <!-- * carousel slider -->
+        <div class="carousel-button-footer">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-primary" id="fullscreenBtn">Full</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary" id="decodeBtn">Decode</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <!-- * App Capsule -->
+
+
+    <!-- ============== Js Files ==============  -->
+    <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+    <!-- Bootstrap -->
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="assets/js/plugins/splide/splide.min.js"></script>
+    <!-- ProgressBar js -->
+    <script src="assets/js/plugins/progressbar-js/progressbar.min.js"></script>
+    <!-- Base Js File -->
+    <script src="assets/js/base_danny.js"></script>
+
+</body>
+
+</html>
