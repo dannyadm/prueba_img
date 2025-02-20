@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             ctx.save();
 
-            ctx.translate(canvas.width, 0);
-            ctx.rotate(Math.PI / 2);
+            ctx.translate(0, canvas.height);
+            ctx.rotate(Math.PI * 1.5);
             ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
             //ctx.drawImage(imgElement, 0, 0);
             const base64Image = canvas.toDataURL('image/png');
