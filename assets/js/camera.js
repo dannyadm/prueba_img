@@ -114,6 +114,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }*/
 
+    /*function cutImage() {
+        divResult.style.display = 'block';
+
+        const highlightedCanvas = scanner.highlightPaper(imgElement);
+        divProcces.src = highlightedCanvas.toDataURL('image/png');
+
+        const contour = scanner.findPaperContour(cv.imread(imgElement));
+        const cornerPoints = scanner.getCornerPoints(contour);
+        console.log('Coordenadas obtenidasss:', cornerPoints);
+
+        const scaleFactor = window.devicePixelRatio || 1;
+        let newSisze = getSizeNewImage(cornerPoints);
+        console.log('Nuevas dimensioness', newSisze);
+
+        const extractedCanvas = document.createElement('canvas');
+        extractedCanvas.width = newSisze.newWith * scaleFactor;
+        extractedCanvas.height = newSisze.newHeight * scaleFactor;
+        const extractedCtx = extractedCanvas.getContext('2d');
+
+        const adjustedX = cornerPoints.topLeftCorner.x * scaleFactor;
+        const adjustedY = cornerPoints.topLeftCorner.y * scaleFactor;
+        const adjustedWidth = newSisze.newWith * scaleFactor;
+        const adjustedHeight = newSisze.newHeight * scaleFactor;
+
+        extractedCtx.drawImage(
+            imgElement,  // Imagen original
+            adjustedX, adjustedY, adjustedWidth, adjustedHeight,
+            0, 0, extractedCanvas.width, extractedCanvas.height
+        );
+
+        divRecort.src = extractedCanvas.toDataURL('image/png');
+    }*/
+
     function cutImage() {
         divResult.style.display = 'block';
     
@@ -122,31 +155,28 @@ document.addEventListener('DOMContentLoaded', function () {
     
         const contour = scanner.findPaperContour(cv.imread(imgElement));
         const cornerPoints = scanner.getCornerPoints(contour);
-        console.log('Coordenadas obtenidas:', cornerPoints);
+        console.log('Coordenadas obtenidasss:', cornerPoints);
     
-        const scaleFactor = window.devicePixelRatio || 1;
+        const imgWidth = imgElement.naturalWidth;
+        const imgHeight = imgElement.naturalHeight;
+        const displayWidth = imgElement.width;
+        const displayHeight = imgElement.height;
+    
+        const scaleX = imgWidth / displayWidth;
+        const scaleY = imgHeight / displayHeight;
+    
         let newSisze = getSizeNewImage(cornerPoints);
-        console.log('Nuevas dimensiones:', newSisze);
+        console.log('Nuevas dimensioness', newSisze);
     
         const extractedCanvas = document.createElement('canvas');
-        extractedCanvas.width = newSisze.newWith * scaleFactor;
-        extractedCanvas.height = newSisze.newHeight * scaleFactor;
-    
-        // Asegúrate de que el contexto del canvas tenga la resolución correcta.
+        extractedCanvas.width = newSisze.newWith;
+        extractedCanvas.height = newSisze.newHeight;
         const extractedCtx = extractedCanvas.getContext('2d');
-        
-        // Asegúrate de que las coordenadas de la imagen estén correctamente escaladas
-        const adjustedX = cornerPoints.topLeftCorner.x * scaleFactor;
-        const adjustedY = cornerPoints.topLeftCorner.y * scaleFactor;
-        const adjustedWidth = newSisze.newWith * scaleFactor;
-        const adjustedHeight = newSisze.newHeight * scaleFactor;
     
-        // Aquí hacemos un ajuste para dispositivos móviles
-        if (scaleFactor !== 1) {
-            // Si el scaleFactor es diferente de 1 (pantallas de alta densidad de píxeles), ajustamos el tamaño
-            imgElement.width = imgElement.naturalWidth / scaleFactor;
-            imgElement.height = imgElement.naturalHeight / scaleFactor;
-        }
+        const adjustedX = cornerPoints.topLeftCorner.x * scaleX;
+        const adjustedY = cornerPoints.topLeftCorner.y * scaleY;
+        const adjustedWidth = (cornerPoints.topRightCorner.x - cornerPoints.topLeftCorner.x) * scaleX;
+        const adjustedHeight = (cornerPoints.bottomLeftCorner.y - cornerPoints.topLeftCorner.y) * scaleY;
     
         extractedCtx.drawImage(
             imgElement,  // Imagen original
