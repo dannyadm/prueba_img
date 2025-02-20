@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
         stopCamera()
     }
 
-    function cutImage() {
+    /*function cutImage() {
         divResult.style.display = 'block'
         const highlightedCanvas = scanner.highlightPaper(imgElement);
         divProcces.src = highlightedCanvas.toDataURL('image/png');
@@ -101,22 +101,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const extractedCanvas = scanner.extractPaper(imgElement, newSisze.newWith, newSisze.newHeight);
         divRecort.src = extractedCanvas.toDataURL('image/png');
-        /*divRecort.onload = function () {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = divRecort.width;
-            canvas.height = divRecort.height;
-            ctx.drawImage(divRecort, 0, 0);
-            let mat = cv.imread(canvas);
-            cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
-            cv.imshow(canvas, mat);
-            const base64Image = canvas.toDataURL('image/png');
-            imgGrayScale.src = base64Image;
-            
-            mat.delete();
-        }
-        imgGrayScale.style.display = 'block';*/
 
+    }*/
+
+    function cutImage() {
+        divResult.style.display = 'block';
+
+        const highlightedCanvas = scanner.highlightPaper(imgElement);
+        divProcces.src = highlightedCanvas.toDataURL('image/png');
+
+        const contour = scanner.findPaperContour(cv.imread(imgElement));
+        const cornerPoints = scanner.getCornerPoints(contour);
+        console.log('Coordenadas obtenidasss:', cornerPoints);
+
+        let newSisze = getSizeNewImage(cornerPoints);
+        console.log('Nuevas dimensioness', newSisze);
+
+        const extractedCanvas = document.createElement('canvas');
+        extractedCanvas.width = newSisze.newWith;
+        extractedCanvas.height = newSisze.newHeight;
+        const extractedCtx = extractedCanvas.getContext('2d');
+
+        // Dibujar la porción recortada en el nuevo canvas utilizando las coordenadas
+        extractedCtx.drawImage(
+            imgElement,
+            cornerPoints.topLeftCorner.x,
+            cornerPoints.topLeftCorner.y,
+            newSisze.newWith,
+            newSisze.newHeight,
+            0,
+            0,
+            newSisze.newWith,
+            newSisze.newHeight
+        );
+
+        // Mostrar la imagen recortada
+        divRecort.src = extractedCanvas.toDataURL('image/png');
     }
 
     function getSizeNewImage(corners) {
