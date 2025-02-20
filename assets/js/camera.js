@@ -116,62 +116,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function cutImage() {
         divResult.style.display = 'block';
-
+    
         const highlightedCanvas = scanner.highlightPaper(imgElement);
         divProcces.src = highlightedCanvas.toDataURL('image/png');
-
+    
         const contour = scanner.findPaperContour(cv.imread(imgElement));
         const cornerPoints = scanner.getCornerPoints(contour);
-        console.log('Coordenadas obtenidasss:', cornerPoints);
-
-
-        /*let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (isMobile) {
-            let imgWidth = imgElement.naturalWidth;
-            let imgHeight = imgElement.naturalHeight;
-
-            let scaleX = imgElement.width / imgWidth;
-            let scaleY = imgElement.height / imgHeight;
-
-            cornerPoints.topLeftCorner.x *= scaleX;
-            cornerPoints.topLeftCorner.y *= scaleY;
-            cornerPoints.topRightCorner.x *= scaleX;
-            cornerPoints.topRightCorner.y *= scaleY;
-            cornerPoints.bottomLeftCorner.x *= scaleX;
-            cornerPoints.bottomLeftCorner.y *= scaleY;
-            cornerPoints.bottomRightCorner.x *= scaleX;
-            cornerPoints.bottomRightCorner.y *= scaleY;
-        }*/
-
-
+        console.log('Coordenadas obtenidas:', cornerPoints);
+    
         const scaleFactor = window.devicePixelRatio || 1;
         let newSisze = getSizeNewImage(cornerPoints);
-        console.log('Nuevas dimensioness', newSisze);
-
+        console.log('Nuevas dimensiones:', newSisze);
+    
         const extractedCanvas = document.createElement('canvas');
-        // extractedCanvas.width = newSisze.newWith;
-        // extractedCanvas.height = newSisze.newHeight;
         extractedCanvas.width = newSisze.newWith * scaleFactor;
         extractedCanvas.height = newSisze.newHeight * scaleFactor;
+    
+        // Asegúrate de que el contexto del canvas tenga la resolución correcta.
         const extractedCtx = extractedCanvas.getContext('2d');
-
+        
+        // Asegúrate de que las coordenadas de la imagen estén correctamente escaladas
         const adjustedX = cornerPoints.topLeftCorner.x * scaleFactor;
         const adjustedY = cornerPoints.topLeftCorner.y * scaleFactor;
         const adjustedWidth = newSisze.newWith * scaleFactor;
         const adjustedHeight = newSisze.newHeight * scaleFactor;
-
-        /*extractedCtx.drawImage(
-            imgElement,
-            cornerPoints.topLeftCorner.x, cornerPoints.topLeftCorner.y, newSisze.newWith, newSisze.newHeight,
-            0, 0, newSisze.newWith, newSisze.newHeight
-        );*/
+    
+        // Aquí hacemos un ajuste para dispositivos móviles
+        if (scaleFactor !== 1) {
+            // Si el scaleFactor es diferente de 1 (pantallas de alta densidad de píxeles), ajustamos el tamaño
+            imgElement.width = imgElement.naturalWidth / scaleFactor;
+            imgElement.height = imgElement.naturalHeight / scaleFactor;
+        }
+    
         extractedCtx.drawImage(
             imgElement,  // Imagen original
             adjustedX, adjustedY, adjustedWidth, adjustedHeight,
             0, 0, extractedCanvas.width, extractedCanvas.height
         );
-
-
+    
         divRecort.src = extractedCanvas.toDataURL('image/png');
     }
 
