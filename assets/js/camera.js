@@ -51,6 +51,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var dataUri = cameraPhoto.getDataUri(config);
         imgElement.src = dataUri;
+        imgElement.onload = function () {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = imgElement.width;
+            canvas.height = imgElement.height;
+            ctx.drawImage(imgElement, 0, 0);
+            let mat = cv.imread(canvas);
+            cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
+            cv.imshow(canvas, mat);
+            const base64Image = canvas.toDataURL('image/png');
+            imgElement.src = base64Image;
+            mat.delete();
+        }
         stopCamera()
     }
 
@@ -69,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const extractedCanvas = scanner.extractPaper(imgElement, newSisze.newWith, newSisze.newHeight);
         divRecort.src = extractedCanvas.toDataURL('image/png');
-        divRecort.onload = function () {
+        /*divRecort.onload = function () {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = divRecort.width;
@@ -83,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             mat.delete();
         }
-        imgGrayScale.style.display = 'block';
+        imgGrayScale.style.display = 'block';*/
 
     }
 
