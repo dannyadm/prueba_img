@@ -80,22 +80,15 @@ document.addEventListener('DOMContentLoaded', function () {
             let mat = cv.imread(canvas);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
+            canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                imgRotated.src = url;
+            }, 'image/png');
 
-            const base64Image = canvas.toDataURL('image/png');
-            imgRotated.src = base64Image;
+            //const base64Image = canvas.toDataURL('image/png');
+            //imgRotated.src = base64Image;
         }, 20);
 
-
-        /*imgElement.onload = function () {
-
-
-            let mat = cv.imread(canvas);
-            cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
-            cv.imshow(canvas, mat);
-            const base64Image = canvas.toDataURL('image/png');
-            imgElement.src = base64Image;
-            mat.delete();
-        }*/
         stopCamera()
     }
 
