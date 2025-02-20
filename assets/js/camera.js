@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var cameraPhoto = new JslibHtml5CameraPhoto.default(videoElement);
     const scanner = new jscanify();
-    
+
 
     function startCameraMaxResolution() {
         //var facingMode = facingModeSelectElement.value;
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Coordenadas obtenidasss:', cornerPoints);
 
 
-        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        /*let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (isMobile) {
             let imgWidth = imgElement.naturalWidth;
             let imgHeight = imgElement.naturalHeight;
@@ -141,28 +141,35 @@ document.addEventListener('DOMContentLoaded', function () {
             cornerPoints.bottomLeftCorner.y *= scaleY;
             cornerPoints.bottomRightCorner.x *= scaleX;
             cornerPoints.bottomRightCorner.y *= scaleY;
-        }
+        }*/
 
 
-
+        const scaleFactor = window.devicePixelRatio || 1;
         let newSisze = getSizeNewImage(cornerPoints);
         console.log('Nuevas dimensioness', newSisze);
 
         const extractedCanvas = document.createElement('canvas');
-        extractedCanvas.width = newSisze.newWith;
-        extractedCanvas.height = newSisze.newHeight;
+        // extractedCanvas.width = newSisze.newWith;
+        // extractedCanvas.height = newSisze.newHeight;
+        extractedCanvas.width = newSisze.newWith * scaleFactor;
+        extractedCanvas.height = newSisze.newHeight * scaleFactor;
         const extractedCtx = extractedCanvas.getContext('2d');
 
-        extractedCtx.drawImage(
+        const adjustedX = cornerPoints.topLeftCorner.x * scaleFactor;
+        const adjustedY = cornerPoints.topLeftCorner.y * scaleFactor;
+        const adjustedWidth = newSisze.newWith * scaleFactor;
+        const adjustedHeight = newSisze.newHeight * scaleFactor;
+
+        /*extractedCtx.drawImage(
             imgElement,
             cornerPoints.topLeftCorner.x, cornerPoints.topLeftCorner.y, newSisze.newWith, newSisze.newHeight,
             0, 0, newSisze.newWith, newSisze.newHeight
-        );
-        /*extractedCtx.drawImage(
+        );*/
+        extractedCtx.drawImage(
             imgElement,  // Imagen original
             adjustedX, adjustedY, adjustedWidth, adjustedHeight,
             0, 0, extractedCanvas.width, extractedCanvas.height
-        );*/
+        );
 
 
         divRecort.src = extractedCanvas.toDataURL('image/png');
