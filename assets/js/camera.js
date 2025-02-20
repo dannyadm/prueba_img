@@ -122,20 +122,21 @@ document.addEventListener('DOMContentLoaded', function () {
         extractedCanvas.height = newSisze.newHeight;
         const extractedCtx = extractedCanvas.getContext('2d');
 
-        // Dibujar la porción recortada en el nuevo canvas utilizando las coordenadas
-        extractedCtx.drawImage(
-            imgElement,
-            cornerPoints.topLeftCorner.x,
-            cornerPoints.topLeftCorner.y,
-            newSisze.newWith,
-            newSisze.newHeight,
-            0,
-            0,
-            newSisze.newWith,
-            newSisze.newHeight
-        );
+        let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile) {
+            extractedCtx.drawImage(
+                imgElement,
+                cornerPoints.bottomLeftCorner.x, cornerPoints.bottomLeftCorner.y, newSisze.newWith, newSisze.newHeight,
+                0, 0, newSisze.newWith, newSisze.newHeight
+            );    
+        }else {
+            extractedCtx.drawImage(
+                imgElement,
+                cornerPoints.topLeftCorner.x, cornerPoints.topLeftCorner.y, newSisze.newWith, newSisze.newHeight,
+                0, 0, newSisze.newWith, newSisze.newHeight
+            );
+        }        
 
-        // Mostrar la imagen recortada
         divRecort.src = extractedCanvas.toDataURL('image/png');
     }
 
