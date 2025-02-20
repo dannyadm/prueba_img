@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const divProcces = document.getElementById('imgProccess');
     const divRecort = document.getElementById('imgResult');
     const imgGrayScale = document.getElementById('imgGrayScale');
+    const imgRotated = document.getElementById('imgRotated');
     var takePhotoButtonElement = document.getElementById('takePhotoButtonId');
     var stopCameraButtonElement = document.getElementById('stopCameraButtonId');
 
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var dataUri = cameraPhoto.getDataUri(config);
         imgElement.src = dataUri;
-        /*setTimeout(() => {
+        setTimeout(() => {
             let imgWidth = imgElement.width;
             let imgHeight = imgElement.height;
             const canvas = document.createElement('canvas');
@@ -77,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
             cv.imshow(canvas, mat);
 
             const base64Image = canvas.toDataURL('image/png');
-            imgElement.src = base64Image;
-        }, 20);*/
+            imgRotated.src = base64Image;
+        }, 20);
 
 
         /*imgElement.onload = function () {
