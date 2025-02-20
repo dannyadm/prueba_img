@@ -51,19 +51,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var dataUri = cameraPhoto.getDataUri(config);
         imgElement.src = dataUri;
-        imgElement.onload = function () {
+        setTimeout(() => {
+            let imgWidth = imgElement.width;
+            let imgHeight = imgElement.height;
+
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = imgElement.width;
-            canvas.height = imgElement.height;
-            ctx.drawImage(imgElement, 0, 0);
+            /*canvas.width = imgElement.width;
+            canvas.height = imgElement.height;*/
+            canvas.width = imgElement.height;
+            canvas.height = imgElement.width;
+
+            ctx.save();
+
+            ctx.translate(canvas.width, 0);
+            ctx.rotate(Math.PI / 2);
+            ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
+            //ctx.drawImage(imgElement, 0, 0);
+            const base64Image = canvas.toDataURL('image/png');
+            imgElement.src = base64Image;
+        }, 20);
+
+
+        /*imgElement.onload = function () {
+
+
             let mat = cv.imread(canvas);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
             const base64Image = canvas.toDataURL('image/png');
             imgElement.src = base64Image;
             mat.delete();
-        }
+        }*/
         stopCamera()
     }
 
