@@ -213,15 +213,15 @@ document.addEventListener('DOMContentLoaded', function () {
         let newSisze = getSizeNewImage(cornerPoints);
         console.log('Nuevas dimensioness', newSisze);
 
-        const extractedCanvas = document.createElement('canvas');
-        extractedCanvas.width = newSisze.newWith;
-        extractedCanvas.height = newSisze.newHeight;
-        const extractedCtx = extractedCanvas.getContext('2d');
-
         const adjustedX = cornerPoints.topLeftCorner.x * scaleX;
         const adjustedY = cornerPoints.topLeftCorner.y * scaleY;
         const adjustedWidth = (cornerPoints.topRightCorner.x - cornerPoints.topLeftCorner.x) * scaleX;
         const adjustedHeight = (cornerPoints.bottomLeftCorner.y - cornerPoints.topLeftCorner.y) * scaleY;
+
+        const extractedCanvas = document.createElement('canvas');
+        extractedCanvas.width = adjustedWidth;
+        extractedCanvas.height = adjustedHeight;
+        const extractedCtx = extractedCanvas.getContext('2d');
 
         alert("Resolucion ajustada:" + adjustedWidth + " x " + adjustedHeight + " sisze:" + JSON.stringify(newSisze))
 
