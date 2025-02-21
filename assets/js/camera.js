@@ -148,12 +148,17 @@ document.addEventListener('DOMContentLoaded', function () {
             let mat = cv.imread(canvas);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
-            canvas.toBlob(function (blob) {
+
+            const imagenData = canvas.toDataURL('image/png');
+            imgRotated.src = imagenData;
+            /*canvas.toBlob(function (blob) {
                 var url = URL.createObjectURL(blob);
                 imgRotated.src = url;
-            }, 'image/png');
+            }, 'image/png');*/
 
-        }, 500);
+
+
+        }, 20);
 
         stopCamera()
     }
