@@ -103,11 +103,9 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => {
             let imgWidth = imgElement.naturalWidth;
             let imgHeight = imgElement.naturalHeight;
-            console.log('Que hayyyy aquiiiiiiiii', imgWidth);
-            console.log('Que hayyyy aquiiiiiiiii', imgHeight);
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            /*let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             if (isMobile) {
                 console.log('Si es un mobileeeee');
                 canvas.width = imgElement.naturalHeight;
@@ -115,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
                 ctx.save();
-                ctx.translate(0, canvas.height);
+                ctx.translate(0, imgElement.naturalHeight);
                 ctx.rotate(Math.PI * 1.5);
                 ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
             } else {
@@ -125,12 +123,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
                 ctx.drawImage(imgElement, 0, 0);
-            }*/
-            canvas.width = imgElement.naturalWidth;
+            }
+            /*canvas.width = imgElement.naturalWidth;
             canvas.height = imgElement.naturalHeight;
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = "high";
-            ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+            ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);*/
             /*let mat = cv.imread(imgElement);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);*/
