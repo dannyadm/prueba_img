@@ -63,9 +63,16 @@
                 <ion-icon name="id-card-person"></ion-icon>
                 Recortar
             </a>
+            <a class="btn btn-primary" id="btnDecoded">
+                <ion-icon name="id-card-person"></ion-icon>
+                Decoded
+            </a>
+            <div>
+                <p id="resultDecoded"></p>
+            </div>
             <br>
             <div>
-                <canvas id="canvasCapture" style="display:none;"></canvas>
+                <!-- <canvas id="canvasCapture" style="display:none;"></canvas> -->
                 <img id="imgId" style="max-width: 100%; height: auto;"/>
                 <img id="imgRotated" style="max-width: 100%; height: auto;"/>
             </div>
@@ -76,10 +83,6 @@
                     </div>
                     <div id="extracted">
                         <img id="imgResult" style="max-width: 100%; height: auto;"/>
-                    </div>
-                    <br>
-                    <div id="newImage">
-                        <img id="imgGrayScale" style="display: none; max-width: 100%; height: auto;"/>
                     </div>
                 </div>
             </div>
@@ -100,6 +103,7 @@
         crossorigin="anonymous"></script>
     <!-- <script src="jscanify/src/opencv.js"></script>
     <script src="jscanify/src/jscanify.js"></script> -->
+    <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
     <script src="https://docs.opencv.org/4.7.0/opencv.js" async></script>
     <script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
     <script src="./jslib-html5-camera-photo/jslib-html5-camera-photo.min.js"></script>

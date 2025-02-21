@@ -5,15 +5,18 @@ document.addEventListener('DOMContentLoaded', function () {
     var imgElement = document.getElementById('imgId');
     var btnDemoCapture = document.getElementById('btnDemoCapture');
     var btnRecorte = document.getElementById('btnRecorte');
+    var btnDecoded = document.getElementById('btnDecoded');
+    var resultDecoded = document.getElementById('resultDecoded');
     var divVideo = document.getElementById('divVideo');
     const divResult = document.getElementById('result');
     const divProcces = document.getElementById('imgProccess');
     const divRecort = document.getElementById('imgResult');
-    const canvasCapture = document.getElementById('canvasCapture');
+    // const canvasCapture = document.getElementById('canvasCapture');
     const imgRotated = document.getElementById('imgRotated');
     var takePhotoButtonElement = document.getElementById('takePhotoButtonId');
     var stopCameraButtonElement = document.getElementById('stopCameraButtonId');
 
+    const codeReader = new ZXing.BrowserPDF417Reader()
     var cameraPhoto = new JslibHtml5CameraPhoto.default(videoElement);
     const scanner = new jscanify();
 
@@ -119,21 +122,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
             } else {
                 console.log('NO es un mobileeeee');
-                canvas.width = imgElement.naturalHeight;
-                canvas.height = imgElement.naturalWidth;
+                canvas.width = imgElement.naturalWidth;
+                canvas.height = imgElement.naturalHeight;
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
                 ctx.filter = 'grayscale(1)';
-                ctx.drawImage(imgElement, 0, 0);
+                ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
             }
-            /*canvas.width = imgElement.naturalWidth;
-            canvas.height = imgElement.naturalHeight;
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = "high";
-            ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);*/
-            /*let mat = cv.imread(imgElement);
-            cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
-            cv.imshow(canvas, mat);*/
 
             const imagenData = canvas.toDataURL('image/png');
             imgRotated.src = imagenData;
@@ -236,6 +231,40 @@ document.addEventListener('DOMContentLoaded', function () {
         divRecort.src = extractedCanvas.toDataURL('image/png');
     }
 
+    function decodeFun(){
+        console.log('Entro a decodificar valoressss');
+        try {
+            codeReader.decodeFromImage(divRecort)
+                .then(result => {
+                    alert("result p417")
+                    console.log("pasa then decode", result.text);
+                    let dataParser = parserResult(result.text);
+                    console.log('Que fue que llegoooooo::::', dataParser);
+                    //console.log(result.text);
+                    let jsonString = JSON.stringify(dataParser);
+                    alert("result p417", jsonString)
+                    resultDecoded.textContent = jsonString;
+                    //resultDecoded.value = jsonString;
+                    //ajustarAltura(resultDecoded);
+                })
+                .catch(err => {
+                    alert("Error p147")
+                    console.error(err);
+                    resultDecoded.textContent = 'Error al decodificar';
+                });
+ 
+ 
+            console.log(`Started decode for image from ${divRecort.src}`)
+ 
+        } catch (ee) {
+            console.log("Errro mainss", ee)
+            resultDecoded.textContent = 'Errro mainss' + ee;
+        }
+ 
+ 
+        console.log(`Started decode for image from ${divRecort.src}`)
+    };
+
     function getSizeNewImage(corners) {
         const bottomLeft = corners.bottomLeftCorner;
         const bottomRight = corners.bottomRightCorner;
@@ -262,6 +291,29 @@ document.addEventListener('DOMContentLoaded', function () {
     btnRecorte.addEventListener('click', cutImage, false)
     takePhotoButtonElement.addEventListener('click', takePhoto, false)
     stopCameraButtonElement.addEventListener('click', stopCamera, false)
+    btnDecoded.addEventListener('click', decodeFun, false)
 
 });
+
+function parserResult(text) {
+    console.log('Llego a crear objetooooo');
+    return {
+        afis_code: cleanString(text.substring(2, 10)),
+        finger_card: cleanString(text.substring(40, 48)),
+        document_number: cleanString(text.substring(48, 58)),
+        last_name: cleanString(text.substring(58, 80)),
+        second_last_name: cleanString(text.substring(81, 104)),
+        first_name: cleanString(text.substring(104, 127)),
+        middle_name: cleanString(text.substring(127, 150)),
+        gender: cleanString(text.substring(151, 152)),
+        birth_date: `${cleanString(text.substring(152, 156))}-${cleanString(text.substring(156, 158))}-${cleanString(text.substring(158, 160))}`.replace(/[^0-9-]/g, ''),
+        municipality_code: cleanString(text.substring(160, 162)),
+        department_code: cleanString(text.substring(162, 165)),
+        blood_type: cleanString(text.substring(166, 168))
+    };
+}
+ 
+function cleanString(text) {
+    return text.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚ+-]/g, '').trim()
+}
 
