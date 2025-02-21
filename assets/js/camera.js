@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(err => {
                     alert("Error p147")
                     console.error(err);
-                    resultDecoded.textContent = 'Error al decodificar';
+                    resultDecoded.textContent = 'Error al decodificar:' + err;
                 });
  
  
