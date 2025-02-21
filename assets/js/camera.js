@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
                 ctx.save();
-                ctx.translate(0, imgElement.naturalHeight);
+                ctx.translate(0, canvas.height);
                 ctx.rotate(Math.PI * 1.5);
                 ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
             } else {
