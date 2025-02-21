@@ -129,9 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = "high";
             ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);*/
-            let mat = cv.imread(imgElement);
+            /*let mat = cv.imread(imgElement);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
-            cv.imshow(canvas, mat);
+            cv.imshow(canvas, mat);*/
 
             const imagenData = canvas.toDataURL('image/png');
             imgRotated.src = imagenData;
