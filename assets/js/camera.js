@@ -142,9 +142,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }*/
             canvas.width = imgElement.width;
             canvas.height = imgElement.height;
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = "high";
-            ctx.drawImage(imgElement, 0, 0);
+            //ctx.imageSmoothingEnabled = true;
+            //ctx.imageSmoothingQuality = "high";
+            ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
             let mat = cv.imread(canvas);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
