@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Que hayyyy aquiiiiiiiii', imgHeight);
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            //let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            /*let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile) {
                 console.log('Si es un mobileeeee');
                 canvas.width = imgElement.naturalHeight;
                 canvas.height = imgElement.naturalWidth;
@@ -125,15 +125,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
                 ctx.drawImage(imgElement, 0, 0);
-            }
-            //canvas.width = imgElement.width;
-            //canvas.height = imgElement.height;
-            //ctx.imageSmoothingEnabled = true;
-            //ctx.imageSmoothingQuality = "high";
-            //ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
-            let mat = cv.imread(imgElement);
+            }*/
+            canvas.width = imgElement.naturalWidth;
+            canvas.height = imgElement.naturalHeight;
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "high";
+            ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+            /*let mat = cv.imread(imgElement);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
-            cv.imshow(canvas, mat);
+            cv.imshow(canvas, mat);*/
 
             const imagenData = canvas.toDataURL('image/png');
             imgRotated.src = imagenData;
