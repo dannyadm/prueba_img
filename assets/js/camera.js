@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
         extractedCtx.drawImage(
             imgRotated,  // Imagen original
             adjustedX, adjustedY, adjustedWidth, adjustedHeight,
-            0, 0, extractedCanvas.width, extractedCanvas.height
+            0, 0, imgWidth, imgHeight
         );
 
         divRecort.src = extractedCanvas.toDataURL('image/png');
