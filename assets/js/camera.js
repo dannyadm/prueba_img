@@ -145,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = "high";
             ctx.drawImage(imgElement, 0, 0);
-            ctx.drawImage(imgElement, 0, 0);
             let mat = cv.imread(canvas);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
