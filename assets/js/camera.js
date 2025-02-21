@@ -101,17 +101,17 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Tipo de image de variable', typeof dataUri);
         imgElement.src = dataUri;
         setTimeout(() => {
-            let imgWidth = imgElement.width;
-            let imgHeight = imgElement.height;
+            let imgWidth = imgElement.naturalWidth;
+            let imgHeight = imgElement.naturalHeight;
             console.log('Que hayyyy aquiiiiiiiii', imgWidth);
             console.log('Que hayyyy aquiiiiiiiii', imgHeight);
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            /*let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            if (isMobile) {
+            //let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
                 console.log('Si es un mobileeeee');
-                canvas.width = imgElement.height;
-                canvas.height = imgElement.width;
+                canvas.width = imgElement.naturalHeight;
+                canvas.height = imgElement.naturalWidth;
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
                 ctx.save();
@@ -120,27 +120,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
             } else {
                 console.log('NO es un mobileeeee');
-                canvas.width = imgElement.width;
-                canvas.height = imgElement.height;
+                canvas.width = imgElement.naturalHeight;
+                canvas.height = imgElement.naturalWidth;
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
                 ctx.drawImage(imgElement, 0, 0);
-            }*/
-            canvas.width = imgElement.width;
-            canvas.height = imgElement.height;
+            }
+            //canvas.width = imgElement.width;
+            //canvas.height = imgElement.height;
             //ctx.imageSmoothingEnabled = true;
             //ctx.imageSmoothingQuality = "high";
-            ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+            //ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
             let mat = cv.imread(imgElement);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
 
             const imagenData = canvas.toDataURL('image/png');
             imgRotated.src = imagenData;
-            /*canvas.toBlob(function (blob) {
-                var url = URL.createObjectURL(blob);
-                imgRotated.src = url;
-            }, 'image/png');*/
 
         }, 20);
 
