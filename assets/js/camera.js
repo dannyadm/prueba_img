@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.save();
                 ctx.translate(0, canvas.height);
                 ctx.rotate(Math.PI * 1.5);
+                ctx.filter = 'grayscale(1)';
                 ctx.drawImage(imgElement, 0, 0, imgWidth, imgHeight);
             } else {
                 console.log('NO es un mobileeeee');
@@ -122,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 canvas.height = imgElement.naturalWidth;
                 ctx.imageSmoothingEnabled = true;
                 ctx.imageSmoothingQuality = "high";
+                ctx.filter = 'grayscale(1)';
                 ctx.drawImage(imgElement, 0, 0);
             }
             /*canvas.width = imgElement.naturalWidth;
