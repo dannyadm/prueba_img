@@ -91,20 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }*/
 
     function takePhoto() {
-
-        /*canvasCapture.width = videoElement.videoWidth;
-        canvasCapture.height = videoElement.videoHeight;
-        const contexto = canvasCapture.getContext('2d');
-        contexto.imageSmoothingEnabled = true;
-        contexto.imageSmoothingQuality = "high";
-        contexto.drawImage(videoElement, 0, 0, canvasCapture.width, canvasCapture.height);
-        canvasCapture.toBlob(function (blob) {
-            var urlOrg = URL.createObjectURL(blob);
-            imgElement.src = urlOrg;
-        }, 'image/png');*/
-
-        //imgElement.src = dataUri;
-
         var config = {
             sizeFactor: 1,
             imageType: IMAGE_TYPES.PNG,
@@ -145,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
             //ctx.imageSmoothingEnabled = true;
             //ctx.imageSmoothingQuality = "high";
             ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
-            let mat = cv.imread(canvas);
+            let mat = cv.imread(imgElement);
             cv.cvtColor(mat, mat, cv.COLOR_RGBA2GRAY);
             cv.imshow(canvas, mat);
 
@@ -155,8 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 var url = URL.createObjectURL(blob);
                 imgRotated.src = url;
             }, 'image/png');*/
-
-
 
         }, 20);
 
