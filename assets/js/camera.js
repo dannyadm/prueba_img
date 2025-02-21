@@ -223,10 +223,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const adjustedWidth = (cornerPoints.topRightCorner.x - cornerPoints.topLeftCorner.x) * scaleX;
         const adjustedHeight = (cornerPoints.bottomLeftCorner.y - cornerPoints.topLeftCorner.y) * scaleY;
 
+        alert("Resolucion ajustada:" + adjustedWidth + " x " + adjustedHeight + " sisze:" + JSON.stringify(newSisze))
+
         extractedCtx.drawImage(
             imgRotated,  // Imagen original
             adjustedX, adjustedY, adjustedWidth, adjustedHeight,
-            0, 0, imgWidth, imgHeight
+            0, 0, extractedCanvas.width, extractedCanvas.height
         );
 
         divRecort.src = extractedCanvas.toDataURL('image/png');
