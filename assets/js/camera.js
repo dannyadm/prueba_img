@@ -195,17 +195,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function cutImage() {
         divResult.style.display = 'block';
 
-        const highlightedCanvas = scanner.highlightPaper(imgElement);
+        const highlightedCanvas = scanner.highlightPaper(imgRotated);
         divProcces.src = highlightedCanvas.toDataURL('image/png');
 
-        const contour = scanner.findPaperContour(cv.imread(imgElement));
+        const contour = scanner.findPaperContour(cv.imread(imgRotated));
         const cornerPoints = scanner.getCornerPoints(contour);
         console.log('Coordenadas obtenidasss:', cornerPoints);
 
-        const imgWidth = imgElement.naturalWidth;
-        const imgHeight = imgElement.naturalHeight;
-        const displayWidth = imgElement.width;
-        const displayHeight = imgElement.height;
+        const imgWidth = imgRotated.naturalWidth;
+        const imgHeight = imgRotated.naturalHeight;
+        const displayWidth = imgRotated.width;
+        const displayHeight = imgRotated.height;
 
         const scaleX = imgWidth / displayWidth;
         const scaleY = imgHeight / displayHeight;
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const adjustedHeight = (cornerPoints.bottomLeftCorner.y - cornerPoints.topLeftCorner.y) * scaleY;
 
         extractedCtx.drawImage(
-            imgElement,  // Imagen original
+            imgRotated,  // Imagen original
             adjustedX, adjustedY, adjustedWidth, adjustedHeight,
             0, 0, extractedCanvas.width, extractedCanvas.height
         );
